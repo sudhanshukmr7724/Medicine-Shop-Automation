@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="nav2.css">
+<link rel="stylesheet" type="text/css" href="table1.css">
+<title>
+Reports
+</title>
+</head>
+
+<body>
+
+		<div class="sidenav">
+		<h2 style="font-family:Arial; color:white; text-align:center;"> MSA </h2>
+			<a href="adminmainpage.php">Dashboard</a>
+			<button class="dropdown-btn">Inventory
+			<i class="down"></i>
+			</button>
+			<div class="dropdown-container">
+				<a href="inventory-add.php">Add New Medicine</a>
+				<a href="inventory-view.php">List Of Medicines</a>
+			</div>
+			<button class="dropdown-btn">Vendors
+			<i class="down"></i>
+			</button>
+			<div class="dropdown-container">
+				<a href="supplier-add.php">Add New Vendor</a>
+				<a href="supplier-view.php">List Of Vendors</a>
+			</div>
+			<button class="dropdown-btn">Stock Purchase
+			<i class="down"></i>
+			</button>
+			<div class="dropdown-container">
+				<a href="purchase-add.php">Add New Purchase</a>
+				<a href="purchase-view.php">Manage Purchases</a>
+			</div>		
+			<button class="dropdown-btn">Employees
+			<i class="down"></i>
+			</button>
+			<div class="dropdown-container">
+				<a href="employee-add.php">Add New Employee</a>
+				<a href="employee-view.php">Manage Employees</a>
+			</div>			
+			<button class="dropdown-btn">Customers
+			<i class="down"></i>
+			</button>
+			<div class="dropdown-container">
+				<a href="customer-add.php">Add New Customer</a>
+				<a href="customer-view.php">Manage Customers</a>
+			</div>
+			<a href="sales-view.php">View Sales Invoice Details</a>
+			<a href="salesitems-view.php">View Sold Products Details</a>
+			<a href="pos1.php">Add New Sale</a>			
+			<button class="dropdown-btn">Reports
+			<i class="down"></i>
+			</button>
+			<div class="dropdown-container">
+				<a href="stockreport.php">Medicines - Low Stock</a>
+				<a href="expiryreport.php">Medicines - Expired</a>
+				<a href="salesreport.php">Transactions Reports</a>				
+			</div>			
+	</div>
+
+	<div class="topnav">
+		<a href="logout.php">Logout</a>
+	</div>
+	
+	<center>
+	<div class="head">
+	<h2> EXPIRED STOCK</h2>
+	</div>
+	</center>
+		
+	<?php
+	
+		include "config.php";
+		$result=mysqli_query($conn,"SELECT P_ID,SUP_ID,MED_ID,P_QTY,P_COST,PUR_DATE,MFG_DATE,EXP_DATE FROM purchase where EXP_DATE < CURDATE() ORDER BY SUP_ID;");
+
+		echo "<script>console.log('Debug Objects: " . $result->num_rows . "' );</script>";
+		if ($result->num_rows > 0) { 
+
+		$last=-1;
+		while($row = $result->fetch_assoc()) {
+			
+		if($last!=$row["SUP_ID"]) {
+		 echo	"<table align='right' id='table1' style='margin-right:100px;'>";
+		echo "<tr>
+			<th>Purchase ID</th>
+			<th>Supplier ID</th>
+			<th>Medicine ID</th>
+			<th>Date of Purchase</th>
+			<th>Manufacturing Date</th>
+			<th>Expiry Date</th>
+		</tr>";
+		}
+		echo "<tr>";
+			echo "<td>" . $row["P_ID"]. "</td>";
+			echo "<td>" . $row["SUP_ID"]. "</td>";
+			echo "<td>" . $row["MED_ID"]. "</td>";
+			echo "<td>" . $row["PUR_DATE"]. "</td>";
+			echo "<td>" . $row["MFG_DATE"] . "</td>";
+			echo "<td style='color:red;'>" . $row["EXP_DATE"]. "</td>";
+		echo "</tr>";
+
+		if($last!=$row["SUP_ID"]) {
+			echo "</table>";
+			$last=$row["SUP_ID"];
+		}
+		}
+		
+		} 
+
+		$conn->close();
+	
+	?>
+	
+</body>
+
+<script>
+	
+		var dropdown = document.getElementsByClassName("dropdown-btn");
+		var i;
+
+			for (i = 0; i < dropdown.length; i++) {
+			  dropdown[i].addEventListener("click", function() {
+			  this.classList.toggle("active");
+			  var dropdownContent = this.nextElementSibling;
+			  if (dropdownContent.style.display === "block") {
+			  dropdownContent.style.display = "none";
+			  } else {
+			  dropdownContent.style.display = "block";
+			  }
+			  });
+			}
+			
+</script>
+
+</html>
