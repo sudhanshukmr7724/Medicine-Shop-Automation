@@ -1,10 +1,10 @@
 # MSA
-### Code Developed by, Grp-13 Grp-2, 2022
+### Code Developed by, Grp-13 Grp-II, 2022
 
-In this project I have deployed a Medical Store Management System as a Web App using PHP and MySQL
+In this project we have deployed a Medical Store Management System as a Web App using PHP and MySQL
 
 ### Softwares Used in this Project :
-- Sublime Text Editor for deploying the PHP files (You can use any text editor for developing the PHP codes)
+- Sublime Text Editor for deploying the PHP files.
 - XAMPP Control Server to establish connection between the database and the PHP files
 
 ### Utilities :
@@ -27,4 +27,4 @@ This medical store management system will provide us the gievn informations,
 - Now in another tab go to the url : `localhost/Pharmacy-Management-System-master/PHARMACY/mainpage.php`
 - while runnig the above url the program will start and the database will be running in the XAMPP server as you can see the differences in the database live!
 
-### Code Developed by, Grp-13 Grp-2, 2022
+### Code Developed by, Grp-13 Grp-II, 2022
